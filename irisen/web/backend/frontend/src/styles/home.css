@@ -1,0 +1,109 @@
+@import url(common.css);
+@import url(reset.css);
+
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* 헤더 스타일 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--main-blue);
+    color: white;
+    padding: 15px 20px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+/* 컨테이너 레이아웃 */
+.container {
+    display: flex;
+    max-width: 1200px;
+    height: auto;
+    margin: 20px auto;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    width: 250px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    font-size: large;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 메인 콘텐츠 스타일 */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+
+.main-content h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.post {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.post h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.post p {
+    color: #555;
+}
+
+.author {
+    display: block;
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* 푸터 스타일 */
+.header_bottom {
+    text-align: center;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    margin-top: 20px;
+}
