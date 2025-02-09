@@ -19,8 +19,11 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/frontend/src/html/webhome.html");
 });
 
-app.get("/temp", (req, res) => {
-    res.sendFile(__dirname + "/frontend/src/html/temp.html");
+app.get("/board/all", (req, res) => {
+    res.sendFile(__dirname + "/frontend/src/html/board.html");
+});
+app.get("/login", (req, res) => {
+    res.sendFile(__dirname + "/frontend/src/html/sign.html");
 });
 
 app.listen(port, () => {
