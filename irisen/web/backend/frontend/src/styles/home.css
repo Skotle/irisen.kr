@@ -12,7 +12,7 @@
 .geulbox{
     display: flex;
 };
-.geulbox p{
+.geulbox a{
     color: white;
     font-size: large;
 };
