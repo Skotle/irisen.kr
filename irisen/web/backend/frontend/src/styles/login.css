@@ -1,0 +1,26 @@
+@import url(common.css);
+@import url(reset.css);
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign_box{
+    margin-top: 200px;
+    width:30%;
+    background-color: var(--main-blue);
+    justify-self: center;
+}
+
+.loginform{
+    display: flex;
+    justify-content: center;
+}
+.username{
+    background-color: gray;
+    border: 3px solid black;
+    width:200px;
+    height: 20px;
+}
