@@ -2,3 +2,7 @@
     --main-blue:rgb(65, 106, 209);
     --whitegray:rgb(157, 157, 157);
 }
+a {
+    color: inherit; 
+    text-decoration: none; 
+}

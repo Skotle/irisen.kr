@@ -34,36 +34,3 @@ a {
     color: white;
     text-decoration: none;
 }
-
-/* 메뉴 스타일 */
-.menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.menu li {
-    margin: 0 15px;
-}
-
-.menu a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-}
-
-.menu a:hover {
-    text-decoration: underline;
-}
-
-/* 사용자 정보 스타일 */
-#user-info {
-    font-size: 14px;
-}
-
-/* 메인 콘텐츠 스타일 */
-.main-content {
-    text-align: center;
-    margin-top: 50px;
-}

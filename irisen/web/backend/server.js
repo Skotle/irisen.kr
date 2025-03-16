@@ -106,6 +106,9 @@ app.get("/board/all", (req, res) => {
 app.get("/login", (req, res) => {
     res.sendFile(__dirname + "/frontend/src/html/sign.html");
 });
+app.get("/profile", (req, res) => {
+    res.sendFile(__dirname + "/frontend/src/html/profile.html");
+});
 
 // ✅ 서버 실행
 app.listen(port, () => {
