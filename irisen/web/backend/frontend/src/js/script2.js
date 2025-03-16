@@ -1,11 +1,15 @@
+import jwtDecode from "jwt-decode";
 window.onload = function() {
     const userInfo = document.getElementById("user-info");
     
     const accessToken = localStorage.getItem("accessToken");
     console.log(accessToken);
-    if (accessToken) {    
-        userInfo.innerHTML = "<p>로그인된 사용자 : 아이디</p>";
-
+    if (accessToken) {
+        const decodedToken = jwtDecode(accessToken);
+        userInfo.innerHTML = `
+            <h1>로그인된 사용자 : ${decodedToken.username}</h1>
+            <a href="#" id="logout-link">로그아웃</a>
+        `;
     } 
     else {
         userInfo.innerHTML = '<a href="login">로그인</a>';

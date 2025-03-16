@@ -5,7 +5,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--main-blue);
+    background-color: var(--main-white);
 }
 
 a {
@@ -14,7 +14,7 @@ a {
 }
 
 .header {
-    background-color: #333;
+    background-color: var(--main-blue);
     padding: 15px 0;
     color: white;
 }

@@ -1,6 +1,7 @@
 :root{
     --main-blue:rgb(65, 106, 209);
     --whitegray:rgb(157, 157, 157);
+    --irisen-white:-rgb(220,220,220);
 }
 a {
     color: inherit; 
