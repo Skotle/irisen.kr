@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; }
+        h2 { text-align: center; }
+        #post-form { margin-bottom: 20px; }
+        textarea, input { width: 100%; height: 80%; ;padding: 10px; margin: 5px 0; border: 5px solid black;}
+        button { padding: 10px; background: blue; color: white; border: none; cursor: pointer; }
+        .post { border-bottom: 1px solid #ddd; padding: 10px 0; }
+    </style>
+</head>
+<body>
+    <h2>ID</h2>
+    <div id="post-form">
+        <input type="text" id="title" placeholder="제목을 입력해 주세요">
+        <textarea id="content" rows="4" placeholder=""></textarea>
+        <button onclick="addPost()">등록</button>
+    </div>
+    <div id="posts"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadPosts);
+
+        function addPost() {
+            let title = document.getElementById("title").value;
+            let content = document.getElementById("content").value;
+            
+            if (title.trim() === "" || content.trim() === "") {
+                alert("제목과 내용을 입력해주세요.");
+                return;
+            }
+            
+            fetch("http://localhost:3000/addPost", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ title, content })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    loadPosts();
+                    document.getElementById("title").value = "";
+                    document.getElementById("content").value = "";
+                }
+            });
+        }
+
+        function loadPosts() {
+            fetch("http://localhost:3000/getPosts")
+            .then(response => response.json())
+            .then(posts => {
+                let postSection = document.getElementById("posts");
+                postSection.innerHTML = "";
+                posts.forEach(post => {
+                    let postDiv = document.createElement("div");
+                    postDiv.classList.add("post");
+                    postDiv.innerHTML = `<h3>${post.title}</h3><p>${post.content}</p>`;
+                    postSection.prepend(postDiv);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

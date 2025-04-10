@@ -59,6 +59,7 @@ a {
 
 /* 사용자 정보 스타일 */
 #user-info {
+    display: flex;
     font-size: 14px;
 }
 

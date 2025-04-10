@@ -5,25 +5,135 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: var(--main-white);
+}
+
+a {
+    color: inherit; 
+    text-decoration: none; 
 }
 
 .header {
+    background-color: var(--main-blue);
+    padding: 15px 0;
+    color: white;
+}
+
+.nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--main-blue);
-    color: white;
-    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.logo {
-    font-size: 20px;
+.logo a {
+    font-size: 24px;
     font-weight: bold;
-}
-
-.nav a {
     color: white;
     text-decoration: none;
-    margin-left: 15px;
 }
+
+/* 메뉴 스타일 */
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.menu li {
+    margin: 0 15px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+/* 사용자 정보 스타일 */
+#user-info {
+    display: flex;
+    font-size: 14px;
+}
+.mid{
+    width: 100%;
+    border:10px black;
+}
+.board {
+    background-color: #f8f9fa; /* 연한 회색 배경 */
+    padding: 15px;
+    border-bottom: 2px solid #ddd;
+  }
+  .def{
+    background-color: #f8f9fa; /* 연한 회색 배경 */
+    padding: 15px;
+    border-bottom: 2px solid #ddd;
+  }
+  
+.list {
+    align-items: center;
+  }
+  
+.board-box {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px; 
+  }
+.def-box {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px; 
+}
+  
+.board-box li {
+    display: inline;
+  }
+  
+.board-box a {
+    text-decoration: none;
+    color: #007bff; /* 링크 색상 */
+    font-weight: bold;
+    padding: 8px 12px;
+    font-size: large;
+    border-radius: 5px;
+    margin-right: 20px;
+  }
+  .def{
+    background-color: #f8f9fa; /* 연한 회색 배경 */
+    padding: 15px;
+    border-bottom: 2px solid #ddd;
+  }
+  .def-box p {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    padding: 8px 12px;
+    font-size: large;
+    border-radius: 5px;
+    margin-right: 20px;
+  }
+.board-box p {
+    font-size: large;
+}
+.board-box a:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+#board-info {
+    font-weight: bold;
+    color: #333;
+    margin-right: 15px;
+  }
+  

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필 편집</title>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+</head>
+<body>
+    <h1>프로필 수정</h1>
+    <form id="profile-form">
+        <label>이름: <input type="text" id="name"></label>
+        <label><input type="checkbox" id="namePublic"> 공개</label><br>
+
+        <label>소개: <textarea id="bio"></textarea></label>
+        <label><input type="checkbox" id="bioPublic"> 공개</label><br>
+
+        <label>프로필 이미지 URL: <input type="text" id="profileImage"></label>
+        <label><input type="checkbox" id="profileImagePublic"> 공개</label><br>
+
+        <button type="submit">저장</button>
+    </form>
+
+    <script>
+        import jwtDecode from 'jwt-decode'
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("accessToken");
+            if (!token) {
+                alert("로그인이 필요합니다.");
+                window.location.href = "/";
+                return;
+            }
+
+            const decoded = jwtDecode(token);
+            const username = decoded.username;
+
+            const response = await fetch(`/profile/${username}`);
+            const data = await response.json();
+
+            if (data.success) {
+                document.getElementById("name").value = data.profile.name !== "비공개" ? data.profile.name : "";
+                document.getElementById("bio").value = data.profile.bio !== "비공개" ? data.profile.bio : "";
+                document.getElementById("profileImage").value = data.profile.profileImage !== "default.jpg" ? data.profile.profileImage : "";
+
+                document.getElementById("namePublic").checked = data.profile.name !== "비공개";
+                document.getElementById("bioPublic").checked = data.profile.bio !== "비공개";
+                document.getElementById("profileImagePublic").checked = data.profile.profileImage !== "default.jpg";
+            }
+
+            // 프로필 수정 요청
+            document.getElementById("profile-form").addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const updatedProfile = {
+                    username,
+                    name: document.getElementById("name").value,
+                    bio: document.getElementById("bio").value,
+                    profileImage: document.getElementById("profileImage").value,
+                    isPublic: {
+                        name: document.getElementById("namePublic").checked,
+                        bio: document.getElementById("bioPublic").checked,
+                        profileImage: document.getElementById("profileImagePublic").checked
+                    }
+                };
+
+                const res = await fetch("/profile/update", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(updatedProfile)
+                });
+
+                const result = await res.json();
+                alert(result.message);
+            });
+        });
+    </script>
+</body>
+</html>

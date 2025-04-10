@@ -8,9 +8,12 @@ import dotenv from "dotenv";
 
 dotenv.config(); // .env 파일 로드
 
+
+
+
 const __dirname = path.resolve();
 const app = express();
-const port = 8080;
+const port = 3000;
 
 app.use(express.static("frontend"));
 app.use(express.json());
@@ -94,13 +97,20 @@ app.get("/protected", authenticateToken, (req, res) => {
     res.json({ success: true, message: "인증된 사용자만 접근 가능합니다.", user: req.user });
 });
 
-// ✅ HTML 페이지 제공
+// 일반 경로 (2)
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/frontend/src/html/home.html");
 });
 
-app.get("/board/all", (req, res) => {
+app.get("/board", (req, res) => {
     res.sendFile(__dirname + "/frontend/src/html/board.html");
+});
+//ㄴ
+app.get("/board/ID", (req, res) => {
+    res.sendFile(__dirname + "/frontend/src/html/board.html");
+});
+app.get("/board/write/ID", (req, res) => {
+    res.sendFile(__dirname + "/frontend/src/html/writeform.html");
 });
 
 app.get("/login", (req, res) => {
@@ -109,8 +119,58 @@ app.get("/login", (req, res) => {
 app.get("/profile", (req, res) => {
     res.sendFile(__dirname + "/frontend/src/html/profile.html");
 });
+app.get("/profile/edit", (req, res) => {
+    res.sendFile(__dirname + "/frontend/src/html/profile_edit.html");
+});
 
-// ✅ 서버 실행
+
+///
+
+app.get("/profile/:username", (req, res) => {
+    const { username } = req.params;
+    const users = getUsers();
+    const user = users.find(u => u.username === username);
+
+    if (user) {
+        const profile = {
+            name: user.isPublic?.name ? user.name : "비공개",
+            bio: user.isPublic?.bio ? user.bio : "비공개",
+            profileImage: user.isPublic?.profileImage ? user.profileImage : "default.jpg"
+        };
+
+        res.json({ success: true, profile });
+    } else {
+        res.status(404).json({ success: false, message: "사용자를 찾을 수 없습니다." });
+    }
+});
+
+
+
+// 게시글 API
+app.get("/getPosts", async (req, res) => {
+    await db.read();
+    res.json(db.data.posts);
+});
+
+app.post("/addPost", async (req, res) => {
+    const { title, content } = req.body;
+    if (!title || !content) {
+        return res.status(400).json({ success: false, message: "제목과 내용을 입력해주세요." });
+    }
+
+    await db.read();
+    const newPost = { id: Date.now(), title, content };
+    db.data.posts.push(newPost);
+    await db.write();
+
+    res.json({ success: true, post: newPost });
+});
+
+
+
+
+
+// ✅ 서버 실행 (5)
 app.listen(port, () => {
     console.log(`✅ 서버 실행: http://localhost:${port}`);
 });
