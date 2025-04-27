@@ -8,13 +8,20 @@
 </head>
 <body>
 
-<div class="login-container">
-    <h2>로그인</h2>
-    <input type="text" id="username" placeholder="아이디">
-    <input type="password" id="password" placeholder="비밀번호">
-    <button onclick="login()">로그인</button>
-    <p class="message" id="message"></p>
-</div>
+    <div class="login-container">
+        <h2 id="form-title">로그인</h2>
+        <input type="text" id="username" placeholder="아이디">
+        <input type="password" id="password" placeholder="비밀번호">
+        
+        <button id="action-button" onclick="login()">로그인</button>
+        <p>
+          <a href="signin">회원가입</a>
+        </p>
+        
+        <p class="message" id="message"></p>
+      </div>
+      
+
 
 <script src="src/js/script.js"></script>
 

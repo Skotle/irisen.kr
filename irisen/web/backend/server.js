@@ -9,8 +9,6 @@ import dotenv from "dotenv";
 dotenv.config(); // .env 파일 로드
 
 
-
-
 const __dirname = path.resolve();
 const app = express();
 const port = 3000;
@@ -116,12 +114,18 @@ app.get("/board/write/ID", (req, res) => {
 app.get("/login", (req, res) => {
     res.sendFile(__dirname + "/frontend/src/html/sign.html");
 });
+
+app.get("/signin", (req, res) => {
+    res.sendFile(__dirname + "/frontend/src/html/newaccess.html");
+});
+
 app.get("/profile", (req, res) => {
     res.sendFile(__dirname + "/frontend/src/html/profile.html");
 });
 app.get("/profile/edit", (req, res) => {
     res.sendFile(__dirname + "/frontend/src/html/profile_edit.html");
 });
+
 
 
 ///
@@ -170,7 +174,58 @@ app.post("/addPost", async (req, res) => {
 
 
 
+// 메모리 상 게시글 저장소 (실제 서비스에서는 DB 사용)
+let posts = [];
+let postId = 1;
+
+// 📝 게시글 목록 조회
+app.get('/api/public-board/posts', (req, res) => {
+  res.json(posts);
+});
+
+// ➕ 게시글 작성
+app.post('/api/public-board/posts', (req, res) => {
+  const { title, content, author } = req.body;
+  const newPost = {
+    id: postId++,
+    title,
+    content,
+    author,
+    createdAt: new Date()
+  };
+  posts.push(newPost);
+  res.status(201).json({ message: '게시글 등록됨', post: newPost });
+});
+
+
+app.get('/api/public-board/posts/:id', (req, res) => {
+  const post = posts.find(p => p.id === parseInt(req.params.id));
+  if (!post) return res.status(404).json({ message: '게시글 없음' });
+  res.json(post);
+});
+
+
+app.put('/api/public-board/posts/:id', (req, res) => {
+  const post = posts.find(p => p.id === parseInt(req.params.id));
+  if (!post) return res.status(404).json({ message: '게시글 없음' });
+  
+  const { title, content } = req.body;
+  post.title = title ?? post.title;
+  post.content = content ?? post.content;
+
+  res.json({ message: '수정 완료', post });
+});
+
+
+app.delete('/api/public-board/posts/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  posts = posts.filter(p => p.id !== id);
+  res.json({ message: '삭제 완료' });
+});
+
+
 // ✅ 서버 실행 (5)
 app.listen(port, () => {
     console.log(`✅ 서버 실행: http://localhost:${port}`);
 });
+

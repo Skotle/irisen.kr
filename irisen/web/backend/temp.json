@@ -1,0 +1,10 @@
+/*
+POST /api/public-board/posts
+Content-Type: application/json
+*/
+
+{
+  "title": "예시 글",
+  "content": "첫 번째 글입니다!",
+  "author": "user123"//사용자명
+}

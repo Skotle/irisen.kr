@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>DB.json에 입력 저장</title>
+</head>
+<body>
+  <h1>텍스트 입력</h1>
+  <input type="text" id="inputText" placeholder="내용을 입력하세요">
+  <button onclick="sendData()">저장</button>
+
+  <script>
+    function sendData() {
+      const text = document.getElementById("inputText").value;
+
+      fetch("/save", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: text })
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert("서버 응답: " + data);
+      });
+    }
+  </script>
+</body>
+</html>
+
